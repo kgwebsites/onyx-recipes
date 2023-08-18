@@ -2,6 +2,7 @@ import * as React from "react";
 import { Helmet } from "react-helmet";
 import { Link, graphql } from "gatsby";
 import Layout from "../components/Layout";
+import { RecipeRollTemplate } from "../components/RecipeRoll";
 
 class TagRoute extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class TagRoute extends React.Component {
     const tag = this.props.pageContext.tag;
     const title = this.props.data.site.siteMetadata.title;
     const totalCount = this.props.data.allMarkdownRemark.totalCount;
-    const tagHeader = `${totalCount} post${
+    const tagHeader = `${totalCount} recipe${
       totalCount === 1 ? "" : "s"
     } tagged with “${tag}”`;
 
@@ -31,7 +32,8 @@ class TagRoute extends React.Component {
                 style={{ marginBottom: "6rem" }}
               >
                 <h3 className="title is-size-4 is-bold-light">{tagHeader}</h3>
-                <ul className="taglist">{postLinks}</ul>
+                {/* <ul className="taglist">{postLinks}</ul> */}
+                <RecipeRollTemplate data={this.props.data} count={totalCount} />
                 <p>
                   <Link to="/tags/">Browse all tags</Link>
                 </p>
@@ -66,6 +68,12 @@ export const tagPageQuery = graphql`
           }
           frontmatter {
             title
+            date(formatString: "MMMM DD, YYYY")
+            image {
+              childImageSharp {
+                gatsbyImageData(width: 120, quality: 100, layout: CONSTRAINED)
+              }
+            }
           }
         }
       }
