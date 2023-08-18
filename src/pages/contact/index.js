@@ -2,12 +2,6 @@ import * as React from "react";
 import { navigate } from "gatsby-link";
 import Layout from "../../components/Layout";
 
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
-
 export default class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +15,7 @@ export default class Index extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(myForm);
+    const formData = new FormData(form);
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
