@@ -13,8 +13,7 @@ export const RecipePageTemplate = ({
   image,
   description,
   helmet,
-  ingredients,
-  steps,
+  body,
   tags,
 }) => {
   return (
@@ -33,25 +32,9 @@ export const RecipePageTemplate = ({
             />
             <p>{date}</p>
             <p>{description}</p>
-            {ingredients && ingredients.length ? (
+            {body ? (
               <>
-                <h3>Ingredients</h3>
-                <ul>
-                  {ingredients.map((ingredient) => (
-                    <li>{ingredient}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-            <ul></ul>
-            {steps && steps.length ? (
-              <>
-                <h3>Steps</h3>
-                <ol>
-                  {steps.map((step) => (
-                    <li>{step}</li>
-                  ))}
-                </ol>
+                <div dangerouslySetInnerHTML={{ __html:body }} />
               </>
             ) : null}
             {tags && tags.length ? (
@@ -77,9 +60,8 @@ RecipePageTemplate.propTypes = {
   description: PropTypes.string,
   title: PropTypes.string,
   helmet: PropTypes.object,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  steps: PropTypes.arrayOf(PropTypes.string),
-  image: PropTypes.string,
+  body: PropTypes.string,
+  image: PropTypes.object,
 };
 
 const RecipePage = ({ data }) => {
@@ -98,8 +80,7 @@ const RecipePage = ({ data }) => {
             />
           </Helmet>
         }
-        ingredients={recipe.frontmatter.ingredients}
-        steps={recipe.frontmatter.steps}
+        body={recipe.html}
         tags={recipe.frontmatter.tags}
         title={recipe.frontmatter.title}
         image={recipe.frontmatter.image}
@@ -125,14 +106,13 @@ export const pageQuery = graphql`
         title
         description
         tags
-        ingredients
-        steps
         image {
           childImageSharp {
             gatsbyImageData(quality: 100, layout: FULL_WIDTH)
           }
         }
       }
+      html
     }
   }
 `;
