@@ -17,7 +17,6 @@ export const RecipePageTemplate = ({
   steps,
   tags,
 }) => {
-  console.log(typeof image === "string");
   return (
     <section className="section">
       {helmet || ""}
