@@ -1,22 +1,17 @@
 ---
-
 templateKey: recipe-page
 title: Cold cereal
 date: 2023-08-17
+description: How to make cereal.
 featuredpost: false
 image: /img/flavor_wheel.jpg
-description: How to make cereal.
-ingredients:
-
-- cereal
-- milk
-
-steps:
-
-- pour cereal into bowl.
-- pour milk into bowl.
-- enjoy.
-
+ingredients: |-
+  * cereal
+  * m﻿Ilk
+steps: |-
+  1. pour cereal into bowl
+  2. p﻿our milk into bowl
+  3. enjoy
 tags:
-
-- breakfast
+  - breakfast
+---
