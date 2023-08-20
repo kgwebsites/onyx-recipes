@@ -24,8 +24,7 @@ tags:
 * 4 medium zucchinis (sliced into quarters)
 * 1/2 cup grated Parmesan cheese
 * 1/2 cup almond flour
-* 2 cloves garlic
-* minced
+* 2 cloves garlic (minced)
 * 1 teaspoon dried oregano
 * 1/2 teaspoon salt
 * 1/4 teaspoon black pepper
