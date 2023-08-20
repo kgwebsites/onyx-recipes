@@ -1,8 +1,8 @@
 ---
 templateKey: index-page
-title: Recipes approved by Onyx
+title: Let's get to cooking!
 image: /img/home-jumbotron.jpg
-heading: Recipes approved by Onyx
+heading: Let's get to cooking!
 mainpitch:
   title: Why Onyx Recipes
   description: >

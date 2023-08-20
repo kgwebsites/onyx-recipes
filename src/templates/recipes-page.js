@@ -117,7 +117,7 @@ RecipePage.propTypes = {
 export default RecipePage;
 
 export const pageQuery = graphql`
-  query RecipePostByID($id: String!) {
+  query RecipesPageByID($id: String!) {
     markdownRemark(id: { eq: $id }) {
       id
       frontmatter {
