@@ -51,8 +51,5 @@
   },
   "engines": {
     "node": ">= 14.15.0"
-  },
-  "resolutions": {
-    "node-gyp-build-optional-packages": "4.3.5"
   }
 }
