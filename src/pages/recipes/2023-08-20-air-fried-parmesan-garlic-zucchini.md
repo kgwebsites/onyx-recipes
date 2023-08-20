@@ -15,7 +15,7 @@ image: /img/img_1327.jpeg
 tags:
   - dinner
   - keto
-  - zucchin
+  - zucchini
   - easy
   - quick
 ---
