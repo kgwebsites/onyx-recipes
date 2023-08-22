@@ -1,7 +1,7 @@
 ---
 templateKey: recipe-page
 title: Air-Fried Parmesan Garlic Zucchini
-date: 2023-08-25T17:49:01.479Z
+date: 2023-08-22T17:49:01.479Z
 description: Indulge in a guilt-free, crispy delight with our Air-Fried Parmesan
   Garlic Zucchini Rounds. These keto-friendly zucchini rounds are coated with a
   flavorful blend of grated Parmesan cheese, almond flour, and aromatic
