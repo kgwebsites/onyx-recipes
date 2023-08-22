@@ -1,8 +1,8 @@
 ---
 templateKey: index-page
-title: Let's get to cooking!
+title: Let's get cookin'
 image: /img/home-jumbotron.jpg
-heading: Let's get to cooking!
+heading: Let's get cookin'
 mainpitch:
   title: Why Onyx Recipes
   description: >
