@@ -73,9 +73,9 @@ export default function BlogRoll() {
   return (
     <StaticQuery
       query={graphql`
-        query BlogRollQuery {
+        query RecipeRollQuery {
           allMarkdownRemark(
-            sort: { order: DESC, fields: [frontmatter___date] }
+            sort: { frontmatter: { date: DESC } }
             filter: { frontmatter: { templateKey: { eq: "recipe-page" } } }
           ) {
             edges {

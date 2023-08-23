@@ -4,11 +4,11 @@ import { Link, graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 
 import Layout from "../components/Layout";
-import RecipeRoll from "../components/RecipeRoll";
 import FullWidthImage from "../components/FullWidthImage";
+import { RecipesPageTemplate } from "./recipes-page";
 
 // eslint-disable-next-line
-export const IndexPageTemplate = ({ image, title, mainpitch }) => {
+export const IndexPageTemplate = ({ image, title, mainpitch, recipeData }) => {
   const heroImage = getImage(image) || image;
 
   return (
@@ -29,7 +29,7 @@ export const IndexPageTemplate = ({ image, title, mainpitch }) => {
                     <h3 className="has-text-weight-semibold is-size-2">
                       Latest recipes
                     </h3>
-                    <RecipeRoll />
+                    <RecipesPageTemplate data={recipeData} />
                     <div className="column is-12 has-text-centered">
                       <Link className="btn" to="/recipes">
                         See more
@@ -61,6 +61,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <IndexPageTemplate
+        recipeData={data}
         image={frontmatter.image}
         title={frontmatter.title}
         mainpitch={frontmatter.mainpitch}
@@ -80,7 +81,7 @@ IndexPage.propTypes = {
 export default IndexPage;
 
 export const pageQuery = graphql`
-  query IndexPageTemplate {
+  query IndexPageTemplate($date: Date!) {
     markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
       frontmatter {
         title
@@ -91,6 +92,33 @@ export const pageQuery = graphql`
         }
         mainpitch {
           description
+        }
+      }
+    }
+    allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      filter: {
+        frontmatter: { templateKey: { eq: "recipe-page" }, date: { lt: $date } }
+      }
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 400)
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            templateKey
+            date(formatString: "MMMM DD, YYYY")
+            featuredpost
+            image {
+              childImageSharp {
+                gatsbyImageData(width: 120, quality: 100, layout: CONSTRAINED)
+              }
+            }
+          }
         }
       }
     }

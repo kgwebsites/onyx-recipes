@@ -2,13 +2,14 @@ import * as React from "react";
 import { Helmet } from "react-helmet";
 import { Link, graphql } from "gatsby";
 import Layout from "../components/Layout";
-import { RecipeRollTemplate } from "../components/RecipeRoll";
+import { RecipesPageTemplate } from "./recipes-page";
 
 class TagRoute extends React.Component {
   render() {
     const tag = this.props.pageContext.tag;
     const title = this.props.data.site.siteMetadata.title;
     const totalCount = this.props.data.allMarkdownRemark.totalCount;
+    const recipeData = this.props.data;
     const tagHeader = `${totalCount} recipe${
       totalCount === 1 ? "" : "s"
     } tagged with “${tag}”`;
@@ -25,7 +26,7 @@ class TagRoute extends React.Component {
               >
                 <h3 className="title is-size-4 is-bold-light">{tagHeader}</h3>
                 {/* <ul className="taglist">{postLinks}</ul> */}
-                <RecipeRollTemplate data={this.props.data} count={totalCount} />
+                <RecipesPageTemplate data={recipeData} />
                 <p>
                   <Link to="/tags/">Browse all tags</Link>
                 </p>
@@ -41,7 +42,7 @@ class TagRoute extends React.Component {
 export default TagRoute;
 
 export const tagPageQuery = graphql`
-  query TagPage($tag: String) {
+  query TagPage($tag: String, $date: Date!) {
     site {
       siteMetadata {
         title
@@ -49,8 +50,8 @@ export const tagPageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 1000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      sort: { frontmatter: { date: DESC } }
+      filter: { frontmatter: { tags: { in: [$tag] }, date: { lt: $date } } }
     ) {
       totalCount
       edges {
@@ -60,7 +61,9 @@ export const tagPageQuery = graphql`
           }
           frontmatter {
             title
+            templateKey
             date(formatString: "MMMM DD, YYYY")
+            featuredpost
             image {
               childImageSharp {
                 gatsbyImageData(width: 120, quality: 100, layout: CONSTRAINED)

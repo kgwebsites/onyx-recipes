@@ -1,130 +1,150 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql, Link } from "gatsby";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Helmet } from "react-helmet";
-import { kebabCase } from "lodash";
 import Layout from "../components/Layout";
+import PreviewCompatibleImage from "../components/PreviewCompatibleImage";
 
 // eslint-disable-next-line
-export const RecipePageTemplate = ({
-  title,
-  date,
-  image,
-  description,
-  helmet,
-  ingredients,
-  steps,
-  tags,
-}) => {
+export const RecipesPageTemplate = ({ data }) => {
+  console.log("template", data);
+  const { edges: recipes } = data.allMarkdownRemark;
+
   return (
-    <section className="section">
-      {helmet || ""}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
-            <GatsbyImage
-              image={getImage(image)}
-              alt={title}
-              formats={["auto", "webp", "avif"]}
-            />
-            <p>{date}</p>
-            <p>{description}</p>
-            {ingredients && ingredients.length ? (
-              <>
-                <h3>Ingredients</h3>
-                <ul>
-                  {ingredients.map((ingredient) => (
-                    <li>{ingredient}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-            <ul></ul>
-            {steps && steps.length ? (
-              <>
-                <h3>Steps</h3>
-                <ol>
-                  {steps.map((step) => (
-                    <li>{step}</li>
-                  ))}
-                </ol>
-              </>
-            ) : null}
-            {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map((tag) => (
-                    <li key={tag + `tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+    <div className="columns is-multiline">
+      {recipes &&
+        recipes.map(({ node: recipe }) => (
+          <div className="is-parent column is-6" key={recipe.id}>
+            <article
+              className={`blog-list-item tile is-child box notification ${
+                recipe.frontmatter.featuredpost ? "is-featured" : ""
+              }`}
+            >
+              <header>
+                {recipe.frontmatter.image ? (
+                  <div className="featured-thumbnail">
+                    <PreviewCompatibleImage
+                      imageInfo={{
+                        image: recipe.frontmatter.image,
+                        alt: `featured image thumbnail for post ${recipe.frontmatter.title}`,
+                        width:
+                          recipe.frontmatter.image.childImageSharp
+                            .gatsbyImageData.width,
+                        height:
+                          recipe.frontmatter.image.childImageSharp
+                            .gatsbyImageData.height,
+                      }}
+                    />
+                  </div>
+                ) : null}
+                <p className="post-meta">
+                  <Link
+                    className="title has-text-primary is-size-4"
+                    to={recipe.fields.slug}
+                  >
+                    {recipe.frontmatter.title}
+                  </Link>
+                  <span> &bull; </span>
+                  <span className="subtitle is-size-5 is-block">
+                    {recipe.frontmatter.date}
+                  </span>
+                </p>
+              </header>
+              <p>
+                <Link className="button" to={recipe.fields.slug}>
+                  See Recipe →
+                </Link>
+              </p>
+            </article>
           </div>
-        </div>
-      </div>
-    </section>
+        ))}
+    </div>
   );
 };
 
-RecipePageTemplate.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.object,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  steps: PropTypes.arrayOf(PropTypes.string),
-  image: PropTypes.string,
-};
-
-const RecipePage = ({ data }) => {
-  const { markdownRemark: recipe } = data;
-
+const RecipesPage = ({ data }) => {
+  console.log("recipes page", data);
   return (
     <Layout>
-      <RecipePageTemplate
-        description={recipe.frontmatter.description}
-        helmet={
-          <Helmet titleTemplate="%s | Blog">
-            <title>{`${recipe.frontmatter.title}`}</title>
-            <meta
-              name="description"
-              content={`${recipe.frontmatter.description}`}
-            />
-          </Helmet>
-        }
-        ingredients={recipe.frontmatter.ingredients}
-        steps={recipe.frontmatter.steps}
-        tags={recipe.frontmatter.tags}
-        title={recipe.frontmatter.title}
-        image={recipe.frontmatter.image}
-      />
+      <div
+        className="full-width-image-container margin-top-0"
+        style={{
+          backgroundImage: `url('/img/blog-index.jpg')`,
+        }}
+      >
+        <h1
+          className="has-text-weight-bold is-size-1"
+          style={{
+            boxShadow: "0.5rem 0 0 rgb(22 97 17), -0.5rem 0 0 rgb(22 97 17)",
+            backgroundColor: "rgb(22 97 17)",
+            color: "white",
+            padding: "1rem",
+          }}
+        >
+          Latest Recipes
+        </h1>
+      </div>
+      <section className="section">
+        <div className="container">
+          <div className="content">
+            <RecipesPageTemplate data={data} />
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 };
 
-RecipePage.propTypes = {
+RecipesPage.propTypes = {
   data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            excerpt: PropTypes.string,
+            id: PropTypes.string,
+            fields: PropTypes.shape({
+              slug: PropTypes.string,
+            }),
+            frontmatter: PropTypes.shape({
+              title: PropTypes.string,
+              description: PropTypes.string,
+            }),
+          }),
+        })
+      ),
+    }),
   }),
 };
 
-export default RecipePage;
+export default RecipesPage;
 
 export const pageQuery = graphql`
-  query RecipesPageByID($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      id
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        title
-        description
-        tags
+  query RecipePageQuery($date: Date!) {
+    allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      filter: {
+        frontmatter: { templateKey: { eq: "recipe-page" }, date: { lt: $date } }
+      }
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 400)
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            templateKey
+            date(formatString: "MMMM DD, YYYY")
+            featuredpost
+            image {
+              childImageSharp {
+                gatsbyImageData(width: 120, quality: 100, layout: CONSTRAINED)
+              }
+            }
+          }
+        }
       }
     }
   }

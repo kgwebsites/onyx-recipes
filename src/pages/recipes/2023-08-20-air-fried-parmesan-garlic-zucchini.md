@@ -19,17 +19,18 @@ tags:
   - easy
   - quick
 ---
+
 ## **Ingredients**
 
-* 4 medium zucchinis (sliced into quarters)
-* 1/2 cup grated Parmesan cheese
-* 1/2 cup almond flour
-* 2 cloves garlic (minced)
-* 1 teaspoon dried oregano
-* 1/2 teaspoon salt
-* 1/4 teaspoon black pepper
-* 2 large eggs(beaten)
-* Olive oil spray
+- 4 medium zucchinis (sliced into quarters)
+- 1/2 cup grated Parmesan cheese
+- 1/2 cup almond flour
+- 2 cloves garlic (minced)
+- 1 teaspoon dried oregano
+- 1/2 teaspoon salt
+- 1/4 teaspoon black pepper
+- 2 large eggs(beaten)
+- Olive oil spray
 
 ## **Steps**
 
@@ -37,7 +38,7 @@ tags:
 2. In a shallow bowl, combine the grated Parmesan cheese almond flour dried oregano, salt, and black pepper. Mix well.
 3. Dip each zucchini into the beaten eggs, then coat it with the Parmesan-almond flour mixture pressing gently to adhere.
 4. Place the coated zucchini in a single layer in the air fryer basket, making sure they are not overcrowded.
-5. Lightly spray the coated zucchini with olive oil spray to help them crisp up. 
+5. Lightly spray the coated zucchini with olive oil spray to help them crisp up.
 6. Air fry the zucchini at 375°F (190°C) for about 10-12 minutes, flipping them halfway through the cooking time, until they are golden brown and crispy.
 7. While air frying, sprinkle minced garlic over the zucchini to infuse them with flavor.
 8. Once the zucchini quarters are cooked and crispy, remove them from the air fryer and place them on a plate.
