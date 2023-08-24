@@ -6,8 +6,13 @@ description: Enjoy the zesty and delightful flavors of this Keto Lemon Poppy
   Seed Bread. With a moist texture and tangy taste, it's the perfect low-carb
   treat to brighten up your day. Whether as a snack or dessert, this recipe will
   satisfy your cravings without derailing your keto lifestyle.
-featuredpost: true
+featuredpost: false
 image: /img/img_1411.jpeg
+tags:
+  - Lemon
+  - poppyseed
+  - bread
+  - icing
 ---
 ## **Ingredients**
 
