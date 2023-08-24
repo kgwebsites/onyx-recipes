@@ -1,7 +1,7 @@
 ---
 templateKey: recipe-page
 title: "Pumpkin Pie Danish "
-date: 2023-08-25T13:02:01.000-07:00
+date: 2023-08-24T13:13:48.311-07:00
 description: These delectable pastries are a delightful way to enjoy the flavors
   of pumpkin pie in a handheld treat. Perfect for autumn gatherings or as a
   special treat with your favorite warm beverage.
